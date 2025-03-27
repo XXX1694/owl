@@ -1,1 +1,52 @@
-<p>add-expense works!</p>
+<!-- add-expense.component.html -->
+<div class="add-expense-container">
+  <mat-card class="add-expense-card">
+    <mat-card-header>
+      <mat-card-title>Add New Expense</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form (ngSubmit)="addExpense()">
+        <mat-form-field appearance="outline">
+          <mat-label>Amount</mat-label>
+          <input
+            matInput
+            type="number"
+            [(ngModel)]="expense.amount"
+            name="amount"
+            required
+          />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Category</mat-label>
+          <input
+            matInput
+            [(ngModel)]="expense.category"
+            name="category"
+            required
+          />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Date</mat-label>
+          <input
+            matInput
+            type="date"
+            [(ngModel)]="expense.date"
+            name="date"
+            required
+          />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Description</mat-label>
+          <input
+            matInput
+            [(ngModel)]="expense.description"
+            name="description"
+          />
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit">
+          Add Expense
+        </button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
