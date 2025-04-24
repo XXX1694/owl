@@ -1,0 +1,17 @@
+<mat-toolbar color="primary" style="justify-content: space-between">
+  <span style="font-weight: bold; font-size: 18px">🦉OWL</span>
+
+  <div>
+    <a mat-button routerLink="/dashboard">Главная</a>
+    <a mat-button routerLink="/add">Добавить</a>
+    <button
+      mat-button
+      *ngIf="authService.isLoggedIn$ | async"
+      (click)="logout()"
+    >
+      Выйти
+    </button>
+  </div>
+</mat-toolbar>
+
+<router-outlet></router-outlet>

@@ -1,0 +1,38 @@
+<mat-card style="max-width: 500px; margin: 50px auto; padding: 20px">
+  <h2 mat-card-title>Добавить транзакцию</h2>
+
+  <form
+    (ngSubmit)="onSubmit()"
+    style="display: flex; flex-direction: column; gap: 16px"
+  >
+    <mat-form-field appearance="outline">
+      <mat-label>Категория</mat-label>
+      <mat-select [(ngModel)]="category" name="category" required>
+        <mat-option *ngFor="let cat of categories" [value]="cat.id">
+          {{ cat.name }} <span *ngIf="cat.is_income">(+)</span
+          ><span *ngIf="!cat.is_income">(-)</span>
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Сумма</mat-label>
+      <input
+        matInput
+        type="number"
+        [(ngModel)]="amount"
+        name="amount"
+        required
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Описание</mat-label>
+      <input matInput [(ngModel)]="description" name="description" />
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit">Сохранить</button>
+
+    <div *ngIf="error" style="color: red">{{ error }}</div>
+  </form>
+</mat-card>

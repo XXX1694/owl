@@ -1,0 +1,14 @@
+from django.contrib import admin
+from .models import Category, Transaction
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('name', 'is_income')
+    list_filter = ('is_income',)
+    search_fields = ('name',)
+
+@admin.register(Transaction)
+class TransactionAdmin(admin.ModelAdmin):
+    list_display = ('user', 'category', 'amount', 'date')
+    list_filter = ('category', 'date')
+    search_fields = ('user__username', 'category__name', 'description')

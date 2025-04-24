@@ -1,0 +1,47 @@
+<mat-card style="max-width: 500px; margin: 100px auto; padding: 20px">
+  <h2 mat-card-title>Регистрация</h2>
+
+  <form
+    (ngSubmit)="onRegister()"
+    style="display: flex; flex-direction: column; gap: 16px"
+  >
+    <mat-form-field appearance="outline">
+      <mat-label>Имя пользователя</mat-label>
+      <input matInput [(ngModel)]="username" name="username" required />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput type="email" [(ngModel)]="email" name="email" required />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Пароль</mat-label>
+      <input
+        matInput
+        type="password"
+        [(ngModel)]="password"
+        name="password"
+        required
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Повторите пароль</mat-label>
+      <input
+        matInput
+        type="password"
+        [(ngModel)]="password2"
+        name="password2"
+        required
+      />
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit">
+      Зарегистрироваться
+    </button>
+    <a mat-button color="accent" routerLink="/login">Уже есть аккаунт? Войти</a>
+  </form>
+
+  <mat-error *ngIf="error">{{ error }}</mat-error>
+</mat-card>

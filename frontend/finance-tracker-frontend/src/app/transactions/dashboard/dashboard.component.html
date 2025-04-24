@@ -1,0 +1,108 @@
+<mat-card style="max-width: 900px; margin: 40px auto; padding: 20px">
+  <div
+    style="display: flex; justify-content: space-between; align-items: center"
+  >
+    <h2>История транзакций</h2>
+    <a mat-raised-button color="primary" routerLink="/add">
+      <mat-icon>add</mat-icon>
+      Добавить
+    </a>
+  </div>
+
+  <mat-card style="margin: 24px 0; padding: 16px">
+    <h3 style="margin-bottom: 16px">Статистика</h3>
+    <div style="display: flex; justify-content: space-between">
+      <div>
+        <strong>Доходы:</strong>
+        <div style="color: green">+{{ totalIncome | number : "1.0-2" }} ₸</div>
+      </div>
+      <div>
+        <strong>Расходы:</strong>
+        <div style="color: red">-{{ totalExpense | number : "1.0-2" }} ₸</div>
+      </div>
+      <div>
+        <strong>Баланс:</strong>
+        <div>{{ balance | number : "1.0-2" }} ₸</div>
+      </div>
+    </div>
+  </mat-card>
+
+  <mat-divider class="my-4"></mat-divider>
+
+  <div *ngIf="loading" style="text-align: center">Загрузка...</div>
+
+  <div *ngIf="!loading && transactions.length === 0" style="text-align: center">
+    <p>Транзакций пока нет.</p>
+    <a mat-button color="accent" routerLink="/add">Создать первую</a>
+  </div>
+
+  <div *ngIf="transactions.length > 0">
+    <table
+      mat-table
+      [dataSource]="transactions"
+      class="mat-elevation-z1"
+      style="width: 100%"
+    >
+      <ng-container matColumnDef="category">
+        <th mat-header-cell *matHeaderCellDef>Категория</th>
+        <td mat-cell *matCellDef="let row">
+          {{ row.category_obj?.name || row.category || "—" }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="amount">
+        <th mat-header-cell *matHeaderCellDef>Сумма</th>
+        <td mat-cell *matCellDef="let row">{{ row.amount }} ₸</td>
+      </ng-container>
+
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef>Описание</th>
+        <td mat-cell *matCellDef="let row">{{ row.description }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef>Дата</th>
+        <td mat-cell *matCellDef="let row">{{ row.date | date }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Действия</th>
+        <td mat-cell *matCellDef="let row" style="text-align: center">
+          <button
+            mat-icon-button
+            [routerLink]="['/edit', row.id]"
+            aria-label="Редактировать"
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            color="warn"
+            (click)="deleteTransaction(row.id)"
+            aria-label="Удалить"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr
+        mat-header-row
+        *matHeaderRowDef="[
+          'category',
+          'amount',
+          'description',
+          'date',
+          'actions'
+        ]"
+      ></tr>
+      <tr
+        mat-row
+        *matRowDef="
+          let row;
+          columns: ['category', 'amount', 'description', 'date', 'actions']
+        "
+      ></tr>
+    </table>
+  </div>
+</mat-card>
